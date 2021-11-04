@@ -28,6 +28,12 @@ describe("GESTOR DE TAREAS", () => {
   it("Deberia verificar una categoria", () => {
     expect(verificarCat("Mascotita")).toEqual(false);
   });
+  it("Deberia agregar una fecha limite a una Tarea", () => {
+    expect(fechaLimite("Ir a pasear al perico","2025-01-01")).toEqual("Fecha Asignada");
+  });
+  it("Deberia modoficar una fecha limite a una Tarea", () => {
+    expect(modificarFechaLimite("Ir a pasear al perico","2025-01-02")).toEqual("Cambiado");
+  });
 });
 
 var lista = [];
@@ -35,11 +41,12 @@ var categorias = ["Trabajo", "Personal", "Quehaceres", "Familia"];
 var tam = 0;
 
 class Tarea {
-  constructor(id, titulo, descripcion, categoria) {
+  constructor(id, titulo, descripcion, categoria, fechaLimite) {
     this.id = id;
     this.titulo = titulo;
     this.descripcion = descripcion;
     this.categoria = categoria;
+    this.fechaLimite = fechaLimite;
   }
 }
 
@@ -94,6 +101,20 @@ function buscarTarea(titulo){
     }
  }
  return ind;
+}
+
+function fechaLimite(titulo,fechaLimite){
+  var estado;
+  var indice = buscarTarea(titulo);
+  lista[indice].fechaLimite = fechaLimite;
+  estado = "Fecha Asignada";
+  return estado;
+}
+
+function modificarFechaLimite(titulo,descripcionMod){
+  var indice = buscarTarea(titulo);
+  lista[indice].fechaLimite = fechaLimite;
+  return "Cambiado";
 }
 
 var diccionarioCategorias = new Object();
