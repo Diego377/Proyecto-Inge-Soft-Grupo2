@@ -19,16 +19,27 @@ describe("GESTOR DE TAREAS", () => {
   it("Deberia modificar la descripcion de una Tarea", () => {
     expect(modificarDescripcion("Ir a pasear al perico", "Llevarlo al parque a dar cien vueltas")).toEqual("Cambiado");
   });
+  it("Deberia agregar una categoria valida a una Tarea", () => {
+    expect(agregarCategoria("Ir a pasear al perico", "Personal")).toEqual("Categorizado");
+  });
+  it("Deberia agregar una categoria valida a una Tarea", () => {
+    expect(agregarCategoria("Ir a pasear al perico", "Mascotita")).toEqual("No Categorizado");
+  });
+  it("Deberia verificar una categoria", () => {
+    expect(verificarCat("Mascotita")).toEqual(false);
+  });
 });
 
 var lista = [];
+var categorias = ["Trabajo", "Personal", "Quehaceres", "Familia"];
 var tam = 0;
 
 class Tarea {
-  constructor(id, titulo, descripcion) {
+  constructor(id, titulo, descripcion, categoria) {
     this.id = id;
     this.titulo = titulo;
     this.descripcion = descripcion;
+    this.categoria = categoria;
   }
 }
 
@@ -52,7 +63,7 @@ function crearTareas(cadenas, index) {
 }
 
 function asignarDescripcion(titulo, descripcion){
-  var tarea = new Tarea(titulo, descripcion, tam);
+  var tarea = new Tarea(tam, titulo, descripcion, "");
   tam++;
   var indice = lista.indexOf(titulo);
   lista[indice] = tarea;
@@ -65,6 +76,16 @@ function modificarDescripcion(titulo,descripcionMod){
   return "Cambiado";
 }
 
+function agregarCategoria(titulo,categoria){
+  var estado = "No Categorizado";
+  if( verificarCat(categoria) == true ){
+    var indice = buscarTarea(titulo);
+    lista[indice].categoria = categoria;
+    estado = "Categorizado";
+  }
+  return estado;
+}
+
 function buscarTarea(titulo){
   var ind = 0;
   for (var i = 0; i < lista.lenght; i++) {
@@ -73,4 +94,24 @@ function buscarTarea(titulo){
     }
  }
  return ind;
+}
+
+var diccionarioCategorias = new Object();
+
+// or the shorthand way
+// var diccionarioCategorias = {};
+// var diccionarioCategorias = {
+//   Categoria: "Trabajo",
+//   "one": 1,
+//   1: "some value"
+// };
+
+
+function verificarCat(categoria){
+  var verificado = false;
+  var indice = categorias.indexOf(categoria);
+  if(indice >= 0){
+    verificado = true;
+  }
+  return verificado;
 }
