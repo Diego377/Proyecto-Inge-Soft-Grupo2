@@ -1,20 +1,17 @@
-import libreria, { GenerarMatriz } from './App.js';
+// import calcularTotalConEstado from "./App";
 
-// const comandos = document.querySelector("#comandos-input");
-// const form = document.querySelector("#controladorAuto-form");
-// const div = document.querySelector("#resultado-div");
+const quantity = document.querySelector("#quantity-number");
+const price = document.querySelector("#price-number");
+const form = document.querySelector("#calcular-form");
+const div = document.querySelector("#resultado-div");
+const state = document.querySelector("#state-text");
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  // var posicionInicial = libreria.CapturarPosicionInicial(comandos.value);
-  // var instrucciones = libreria.CapurarInstrucciones(comandos.value);
-  // var grilla = libreria.CapurarTamañoGrilla(comandos.value);
-  // //var comandosIngresados = comandos.value;
-  // var posicionFinal = libreria.ControladorAuto(comandos.value);
-  
-  // div.innerHTML = "<label>POSICION INICIAL ==> </label>" + posicionInicial + "<br>" + 
-  //                 "<label>INSTRUCCIONES ==> </label>" + instrucciones + "<br>" + 
-  //                 "<label>TAMAÑO GRILLA ==> </label>" +  grilla + "<br><br>" + 
-  //                 "<label>POSICION FINAL ==> </label>" + posicionFinal;
+  const cantidad = Number.parseInt(quantity.value);
+  const precio = Number.parseInt(price.value);
+  const estado = state.value;
+
+  div.innerHTML = "<p>" + calcularTotalConEstado(cantidad, precio, estado) + "</p>";
 });
